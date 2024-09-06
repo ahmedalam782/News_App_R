@@ -1,0 +1,18 @@
+{
+  "newsApp": "News App",
+  "settings": "Settings",
+  "language": "Language",
+  "arabic": "Arabic",
+  "english": "English",
+  "categories": "Categories",
+  "pickCategory": "Pick your category of interest",
+  "sports": "Sports",
+  "technology": "Technology",
+  "health": "Health",
+  "business": "Business",
+  "entertainment": "Entertainment",
+  "science": "Science",
+  "searchArticle": "Search Article",
+  "locale": "en",
+  "viewFullArticle":"View Full Article"
+}

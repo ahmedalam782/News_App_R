@@ -1,0 +1,19 @@
+{
+  "newsApp": "تطبيق الأخبار",
+  "settings": "الإعدادات",
+  "language": "اللغة",
+  "arabic": "عربي",
+  "english": "إنجليزي",
+  "categories": "أقسام",
+  "pickCategory": "اختر الفئة الخاصة بك ",
+  "sports":"الرياضة",
+  "technology":"تكنولوجيا",
+  "health":"الصحة",
+  "business":"الأعمال",
+  "entertainment":"الترفيه",
+  "science":"العلوم",
+  "searchArticle": "البحث عن المقال",
+  "locale": "ar",
+  "viewFullArticle":"عرض المقال كاملا"
+
+}

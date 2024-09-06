@@ -1,0 +1,1 @@
+enum DrawerItems { categories, settings }
