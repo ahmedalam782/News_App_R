@@ -24,8 +24,7 @@ class _NewsListState extends State<NewsList> {
   @override
   Widget build(BuildContext context) {
     if (selectedSourceId != widget.sourceId ||
-        widget.query != null ||
-        selectQuery != widget.query) {
+        widget.query != null && selectQuery != widget.query) {
       selectedSourceId = widget.sourceId;
       selectQuery = widget.query ?? "";
       newsViewModel.getNews(widget.sourceId ?? "", widget.query ?? "");
