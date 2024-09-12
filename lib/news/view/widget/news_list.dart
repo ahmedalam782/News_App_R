@@ -57,22 +57,23 @@ class _NewsListState extends State<NewsList> {
             child: newsViewModel.errorMessage == null
                 ? ListView.builder(
                     itemBuilder: (_, index) {
-                if (index < newsViewModel.article.length) {
-                  return NewsItems(
-                    article: newsViewModel.article[index],
-                  );
-                } else {
-                  return newsViewModel.isLoadingPagination
-                      ? Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical:
-                                  MediaQuery.sizeOf(context).height * .05),
-                          child: const LoadingIndicator(),
-                        )
-                      : const SizedBox();
-                }
-              },
-              itemCount: newsViewModel.article.length + 1,
+                      if (index < newsViewModel.article.length) {
+                        return NewsItems(
+                          article: newsViewModel.article[index],
+                        );
+                      } else {
+                        return newsViewModel.isLoadingPagination
+                            ? Padding(
+                                padding: EdgeInsets.symmetric(
+                                    vertical:
+                                        MediaQuery.sizeOf(context).height *
+                                            .05),
+                                child: const LoadingIndicator(),
+                              )
+                            : const SizedBox();
+                      }
+                    },
+                    itemCount: newsViewModel.article.length + 1,
                   )
                 : ErrorIndicator(
                     message: newsViewModel.errorMessage,
