@@ -77,59 +77,5 @@ class _NewsListState extends State<NewsList> {
         }
       }),
     );
-    // return FutureBuilder(
-    //   future: NewsServices.getNews(widget.sourceId, widget.query, page),
-    //   builder: (context, snapshot) {
-    //     if (snapshot.connectionState == ConnectionState.waiting &&
-    //         forLoading == false) {
-    //       return const LoadingIndicator();
-    //     } else if (snapshot.hasError || snapshot.data?.status != 'ok') {
-    //       return const ErrorIndicator();
-    //     } else {
-    //       if (selectedSourceID != widget.sourceId) {
-    //         page = 1;
-    //         selectedSourceID = widget.sourceId;
-    //         news = [];
-    //         forLoading = false;
-    //       }
-    //       news.addAll(snapshot.data?.articles.toList());
-    //       article = news.toSet();
-    //       news = article.toList();
-    //       return NotificationListener<ScrollNotification>(
-    //         onNotification: (notification) {
-    //           if (notification.metrics.pixels ==
-    //                   notification.metrics.maxScrollExtent &&
-    //               notification is ScrollUpdateNotification) {
-    //             if (snapshot.data?.articles.isNotEmpty) {
-    //               page++;
-    //               forLoading = true;
-    //               setState(() {});
-    //             }
-    //           }
-    //           return true;
-    //         },
-    //         child: ListView.builder(
-    //           itemBuilder: (_, index) {
-    //             if (index < news.length) {
-    //               return NewsItems(
-    //                 article: news[index],
-    //               );
-    //             } else {
-    //               return news.length != snapshot.data?.totalResults
-    //                   ? Padding(
-    //                       padding: EdgeInsets.symmetric(
-    //                           vertical:
-    //                               MediaQuery.sizeOf(context).height * .05),
-    //                       child: const LoadingIndicator(),
-    //                     )
-    //                   : const SizedBox();
-    //             }
-    //           },
-    //           itemCount: news.length + 1,
-    //         ),
-    //       );
-    //     }
-    //   },
-    // );
   }
 }

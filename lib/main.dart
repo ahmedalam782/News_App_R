@@ -33,9 +33,9 @@ class NewsApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        SplashScreen.routeName: (_) => SplashScreen(),
-        HomeScreen.routeName: (_) => HomeScreen(),
-        NewsContent.routeName: (_) => NewsContent(),
+        SplashScreen.routeName: (_) => const SplashScreen(),
+        HomeScreen.routeName: (_) => const HomeScreen(),
+        NewsContent.routeName: (_) => const NewsContent(),
       },
       theme: AppTheme.lightTheme,
       themeMode: ThemeMode.light,
