@@ -24,7 +24,8 @@ class _NewsListState extends State<NewsList> {
   @override
   Widget build(BuildContext context) {
     if (selectedSourceId != widget.sourceId ||
-        widget.query != null && selectQuery != widget.query) {
+        widget.query != null ||
+        selectQuery != widget.query) {
       selectedSourceId = widget.sourceId;
       selectQuery = widget.query ?? "";
       newsViewModel.getNews(widget.sourceId ?? "", widget.query ?? "");
@@ -57,22 +58,23 @@ class _NewsListState extends State<NewsList> {
             child: newsViewModel.errorMessage == null
                 ? ListView.builder(
                     itemBuilder: (_, index) {
-                if (index < newsViewModel.article.length) {
-                  return NewsItems(
-                    article: newsViewModel.article[index],
-                  );
-                } else {
-                  return newsViewModel.isLoadingPagination
-                      ? Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical:
-                                  MediaQuery.sizeOf(context).height * .05),
-                          child: const LoadingIndicator(),
-                        )
-                      : const SizedBox();
-                }
-              },
-              itemCount: newsViewModel.article.length + 1,
+                      if (index < newsViewModel.article.length) {
+                        return NewsItems(
+                          article: newsViewModel.article[index],
+                        );
+                      } else {
+                        return newsViewModel.isLoadingPagination
+                            ? Padding(
+                                padding: EdgeInsets.symmetric(
+                                    vertical:
+                                        MediaQuery.sizeOf(context).height *
+                                            .05),
+                                child: const LoadingIndicator(),
+                              )
+                            : const SizedBox();
+                      }
+                    },
+                    itemCount: newsViewModel.article.length + 1,
                   )
                 : ErrorIndicator(
                     message: newsViewModel.errorMessage,

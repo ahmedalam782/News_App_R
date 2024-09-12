@@ -23,6 +23,7 @@ class NewsViewModel extends ChangeNotifier {
       isLoading = true;
       article = [];
       page = 1;
+      errorMessage = null;
       notifyListeners();
     }
     try {
@@ -31,12 +32,13 @@ class NewsViewModel extends ChangeNotifier {
         hasMore = false;
         page = 1;
         isLoadingPagination = false;
-        if (response.articles!.isEmpty) {
+        if (article.isEmpty && response.articles!.isEmpty) {
           errorMessage = 'Failed to get News';
         }
       } else if (response.status == 'ok' || response.articles != null) {
         article.addAll(response.articles!.toList());
         isLoadingPagination = false;
+        hasMore = true;
         page++;
       } else if (response.errorServerModel?.message != null ||
           response.errorServerModel?.status == 'error') {
