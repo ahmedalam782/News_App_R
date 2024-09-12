@@ -31,6 +31,9 @@ class NewsViewModel extends ChangeNotifier {
         hasMore = false;
         page = 1;
         isLoadingPagination = false;
+        if (response.articles!.isEmpty) {
+          errorMessage = 'Failed to get News';
+        }
       } else if (response.status == 'ok' || response.articles != null) {
         article.addAll(response.articles!.toList());
         isLoadingPagination = false;

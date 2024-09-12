@@ -54,8 +54,9 @@ class _NewsListState extends State<NewsList> {
               }
               return true;
             },
-            child: ListView.builder(
-              itemBuilder: (_, index) {
+            child: newsViewModel.errorMessage == null
+                ? ListView.builder(
+                    itemBuilder: (_, index) {
                 if (index < newsViewModel.article.length) {
                   return NewsItems(
                     article: newsViewModel.article[index],
@@ -72,7 +73,10 @@ class _NewsListState extends State<NewsList> {
                 }
               },
               itemCount: newsViewModel.article.length + 1,
-            ),
+                  )
+                : ErrorIndicator(
+                    message: newsViewModel.errorMessage,
+                  ),
           );
         }
       }),
