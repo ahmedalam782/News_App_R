@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:news_app_route/news/data/models/article.dart';
-import 'package:news_app_route/news/data/news_data_model/news_data_model.dart';
+import 'package:news_app_route/news/repository/news_repository.dart';
+
+import '../../Shared/service_locator.dart';
 
 class NewsViewModel extends ChangeNotifier {
-  NewsDataModel newsDataModel = NewsDataModel();
+  final repository = NewsRepository(ServiceLocator.newsData);
   List<Article> article = [];
   String? errorMessage;
   bool isLoading = false;
@@ -27,24 +29,15 @@ class NewsViewModel extends ChangeNotifier {
       notifyListeners();
     }
     try {
-      final response = await newsDataModel.getNews(sourceId, q, page);
-      if (response.totalResults == article.length) {
+      if (await repository.getNews(sourceId, q, page) == []) {
         hasMore = false;
         page = 1;
         isLoadingPagination = false;
-        if (article.isEmpty && response.articles!.isEmpty) {
-          errorMessage = 'Failed to get News';
-        }
-      } else if (response.status == 'ok' || response.articles != null) {
-        article.addAll(response.articles!.toList());
+      } else {
+        article.addAll(await repository.getNews(sourceId, q, page));
         isLoadingPagination = false;
         hasMore = true;
         page++;
-      } else if (response.errorServerModel?.message != null ||
-          response.errorServerModel?.status == 'error') {
-        errorMessage = response.errorServerModel?.message;
-      } else {
-        errorMessage = 'Failed to get News';
       }
     } catch (e) {
       errorMessage = e.toString();
