@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-
-import '../../../../../Shared/network/local/cache_helper.dart';
+import 'package:news_app_route/Settings/repository/setting_repository.dart';
+import 'package:news_app_route/Shared/service_locator.dart';
 
 class SettingsViewModel extends ChangeNotifier {
   String lang = "en";
-
+  final repository = SettingRepository(ServiceLocator.settingData);
   Future<void> changeLanguage(String selectedLanguage) async {
     lang = selectedLanguage;
-    await CacheHelper.saveData(key: 'isLanguage', value: lang);
+    repository.saveLanguage(lang);
     notifyListeners();
   }
 }
