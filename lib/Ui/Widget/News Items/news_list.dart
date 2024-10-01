@@ -21,6 +21,7 @@ class _NewsListState extends State<NewsList> {
   String? selectedSourceID;
   List<Article> news = [];
   bool forLoading = false;
+  Set<Article> article = {};
 
   @override
   Widget build(BuildContext context) {
@@ -39,18 +40,15 @@ class _NewsListState extends State<NewsList> {
             news = [];
             forLoading = false;
           }
-          if (news.isEmpty) {
-            news = snapshot.data?.articles ?? [];
-          } else if (snapshot.data?.articles?.isNotEmpty == true &&
-              snapshot.data?.articles?.last.title != news.last.title) {
-            news.addAll(snapshot.data?.articles ?? []);
-          }
+          news.addAll(snapshot.data?.articles.toList());
+          article = news.toSet();
+          news = article.toList();
           return NotificationListener<ScrollNotification>(
             onNotification: (notification) {
               if (notification.metrics.pixels ==
                       notification.metrics.maxScrollExtent &&
                   notification is ScrollUpdateNotification) {
-                if (snapshot.data?.articles?.isNotEmpty == true) {
+                if (snapshot.data?.articles.isNotEmpty) {
                   page++;
                   forLoading = true;
                   setState(() {});

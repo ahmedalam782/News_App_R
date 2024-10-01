@@ -3,18 +3,24 @@ import 'package:flutter/material.dart';
 import '../Themes/app_theme.dart';
 
 class ErrorIndicator extends StatelessWidget {
-  const ErrorIndicator({super.key});
+  const ErrorIndicator({super.key, this.message});
+
+  final String? message;
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(
-        "SomeThing went Wrong !",
-        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-              fontSize: 20,
-              color: AppTheme.navy,
-              fontWeight: FontWeight.w500,
-            ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.sizeOf(context).width * .09),
+        child: Text(
+          message ?? " SomeThing went Wrong!",
+          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                fontSize: 20,
+                color: AppTheme.navy,
+                fontWeight: FontWeight.w500,
+              ),
+        ),
       ),
     );
   }

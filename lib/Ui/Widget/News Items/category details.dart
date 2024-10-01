@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:news_app_route/Shared/Components/error_indicator.dart';
 import 'package:news_app_route/Shared/Components/loading_indicator.dart';
 import 'package:news_app_route/Ui/Widget/News%20Items/sources_tabs.dart';
-
 import '../../../Shared/network/remote/news_services.dart';
 
 class CategoryDetails extends StatefulWidget {
@@ -33,7 +32,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
           final sources = snapshot.data?.sources ?? [];
           return SourcesTabs(
             sources: sources,
-            query: widget.query,
+            query: widget.query ?? "",
           );
         }
       },

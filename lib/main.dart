@@ -1,24 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:news_app_route/Shared/Themes/app_theme.dart';
-import 'package:news_app_route/Ui/Widget/News%20Items/news_content.dart';
-import 'package:provider/provider.dart';
-import 'Shared/network/local/cache_helper.dart';
-import 'Ui/Screens/home_screen.dart';
-import 'Ui/Screens/splash_screen.dart';
-import 'Ui/Widget/Settings/settings_provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:news_app_route/Settings/repository/setting_repository.dart';
+import 'package:news_app_route/Shared/Themes/app_theme.dart';
+import 'package:news_app_route/Shared/service_locator.dart';
+import 'package:news_app_route/news_content/view/screens/news_content.dart';
+import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
+
+import 'Settings/view_model/settings_view_model.dart';
+import 'Shared/Bloc Observer/bloc_observer.dart';
+import 'home/view/screens/home_screen.dart';
+import 'splash/view/screens/splash_screen.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  timeago.setLocaleMessages('en',timeago.EnMessages()
-  );
-  timeago.setLocaleMessages('ar',timeago.ArMessages()
-  );
-  await CacheHelper.init();
-  String lang = await CacheHelper.getData(key: 'isLanguage') ?? "en";
+  Bloc.observer = const SimpleBlocObserver();
+  timeago.setLocaleMessages('en', timeago.EnMessages());
+  timeago.setLocaleMessages('ar', timeago.ArMessages());
+  final repository = SettingRepository(ServiceLocator.settingData);
+  String lang = await repository.getLanguage() ?? 'en';
   runApp(
     ChangeNotifierProvider(
-      create: (_) => SettingProvider()..changeLanguage(lang),
+      create: (_) => SettingsViewModel()..changeLanguage(lang),
       child: const NewsApp(),
     ),
   );
@@ -29,14 +33,13 @@ class NewsApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SettingProvider settingProvider = Provider.of<SettingProvider>(context);
-
+    SettingsViewModel settingProvider = Provider.of<SettingsViewModel>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        SplashScreen.routeName: (_) => SplashScreen(),
-        HomeScreen.routeName: (_) => HomeScreen(),
-        NewsContent.routeName: (_) => NewsContent(),
+        SplashScreen.routeName: (_) => const SplashScreen(),
+        HomeScreen.routeName: (_) => const HomeScreen(),
+        NewsContent.routeName: (_) => const NewsContent(),
       },
       theme: AppTheme.lightTheme,
       themeMode: ThemeMode.light,
