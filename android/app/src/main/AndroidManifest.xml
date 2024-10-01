@@ -4,7 +4,7 @@
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/splash"
-        android:label="news_app_route">
+        android:label="News">
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"

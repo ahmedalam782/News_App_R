@@ -7,8 +7,8 @@ import 'package:news_app_route/category/data/models/category_model.dart';
 import '../../../Settings/view/widgets/settings_tab.dart';
 import '../../../Shared/Components/text_form_field_component.dart';
 import '../../../Shared/Themes/app_theme.dart';
-import '../../../category/view/widgets/category_details.dart';
 import '../../../category/view/widgets/category_tab.dart';
+import '../../../sources/view/widgets/category_details.dart';
 import '../widgets/drawer_design.dart';
 
 class HomeScreen extends StatefulWidget {

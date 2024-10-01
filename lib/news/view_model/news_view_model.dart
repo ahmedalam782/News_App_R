@@ -1,17 +1,21 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app_route/news/data/models/article.dart';
 import 'package:news_app_route/news/repository/news_repository.dart';
+import 'package:news_app_route/news/view_model/news_states.dart';
 
 import '../../Shared/service_locator.dart';
 
-class NewsViewModel extends ChangeNotifier {
-  final repository = NewsRepository(ServiceLocator.newsData);
-  List<Article> article = [];
-  String? errorMessage;
-  bool isLoading = false;
+class NewsCubitViewModel extends Cubit<NewsStates> {
+  late final NewsRepository repository;
+
+  NewsCubitViewModel() : super(NewsInitialState()) {
+    repository = NewsRepository(ServiceLocator.newsData);
+  }
+
+  static NewsCubitViewModel get(context) => BlocProvider.of(context);
   int page = 1;
-  bool hasMore = true;
-  bool isLoadingPagination = false;
+  List<Article> news = [];
+  bool hasMore = false;
 
   Future<void> getNews(
     String sourceId,
@@ -19,30 +23,30 @@ class NewsViewModel extends ChangeNotifier {
     bool isLoadingFromPagination = false,
   }) async {
     if (isLoadingFromPagination) {
-      isLoadingPagination = isLoadingFromPagination;
-      notifyListeners();
+      emit(NewsPaginationState());
     } else {
-      isLoading = true;
-      article = [];
       page = 1;
-      errorMessage = null;
-      notifyListeners();
+      news = [];
+      emit(NewsLoadingState());
     }
     try {
-      if (await repository.getNews(sourceId, q, page) == []) {
-        hasMore = false;
-        page = 1;
-        isLoadingPagination = false;
-      } else {
-        article.addAll(await repository.getNews(sourceId, q, page));
-        isLoadingPagination = false;
-        hasMore = true;
+      var article = await repository.getNews(sourceId, q, page);
+      if (article.isNotEmpty) {
+        if (article.length < 5) {
+          hasMore = false;
+        } else {
+          hasMore = true;
+        }
+        news.addAll(article);
         page++;
+      } else {
+        page = 1;
+        article = [];
+        hasMore = false;
       }
+      emit(NewsSuccessState(news: news));
     } catch (e) {
-      errorMessage = e.toString();
+      emit(NewsFailureState(errorMessage: e.toString()));
     }
-    isLoading = false;
-    notifyListeners();
   }
 }
