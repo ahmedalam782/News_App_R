@@ -32,16 +32,10 @@ class _SplashScreenState extends State<SplashScreen> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Spacer(
-              flex: 3,
-            ),
             Image.asset(
               "assets/images/logo.png",
               width: double.infinity,
             ),
-            const Spacer(),
-            Image.asset("assets/images/branding_sp.png"),
-            const Spacer(),
           ],
         ),
       ),
