@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:news_app_route/Settings/repository/setting_repository.dart';
@@ -15,6 +16,9 @@ import 'splash/view/screens/splash_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   Bloc.observer = const SimpleBlocObserver();
   timeago.setLocaleMessages('en', timeago.EnMessages());
   timeago.setLocaleMessages('ar', timeago.ArMessages());
