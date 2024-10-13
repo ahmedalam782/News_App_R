@@ -4,6 +4,7 @@
 
 This is a Flutter-based News App that provides users with the latest news articles from various sources. The app utilizes a clean architecture approach, implementing the MVVM (Model-View-ViewModel) pattern along with the BLoC (Business Logic Component) pattern using Cubit for state management. The application fetches news data from a remote API and incorporates the Repository pattern for efficient data handling.
 
+<img width="60%" src="https://github.com/user-attachments/assets/da1bf192-f514-4996-aee7-0b52ebe3353d"/>
 
 <img width="40%" src="https://github.com/user-attachments/assets/0d0060b3-bcd1-487b-9972-3d54ee01f87a"/>
 <img width="40%" src="https://github.com/user-attachments/assets/5b6e6b2e-f709-4172-a539-f7f805f72f67"/>
